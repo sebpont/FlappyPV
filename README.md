@@ -22,6 +22,7 @@ What to do:
   
 Notes:
 This is my first experience with a RPi and pygame. The code is not as effective as it could be but worked for what we needed.
+To get the RPi to handle the game there are some curious edits in the code.
 
 The game is heavily based off the example below.
 https://codereview.stackexchange.com/questions/61477/flappy-bird-game-clone-for-a-beginners-programming-class/61570
