@@ -1,3 +1,6 @@
+// this code gets the arduino to read three anolgue signals and print out the values. 
+// the python code checks for line 'v' then reads the next three lines as it's contoller inputs for 'bird', 'cat', and 'dog'.
+
 void setup() 
 {
   Serial.begin(9600);
