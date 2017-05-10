@@ -247,7 +247,6 @@ def main():
     #setting up the serial port - the first part refers to the port connected to the arduino. 9600 is the baud rate
     ser = serial.Serial(arduino_port, 9600)
     
-
     images = load_images()
     bird_score = 0
     cat_score = 0
@@ -260,6 +259,7 @@ def main():
     pipes = []
     time_since_last_pipe = 2000
     
+    #fill high_scores with something to be able to sort and print
     high_scores = {0:[0,0],1:[1,1],2:[2,2],3:[3,3],4:[4,4],5:[5,5]}
 
     done = paused = False
@@ -271,7 +271,7 @@ def main():
             time_since_last_pipe = pygame.time.get_ticks()
             pygame.event.post(pygame.event.Event(EVENT_NEWPIPE))     
             
-        # press esc to close and 'P' for pause.
+        # press esc to close and 'P' for pause. create new pipe if required
         for e in pygame.event.get():            
             if e.type == QUIT or (e.type == KEYUP and (e.key == K_ESCAPE or e.key == K_q)):
                 done = True
@@ -282,7 +282,7 @@ def main():
                 pp = random_pipe_pair(images['pipe-end'], images['pipe-body'])
                 pipes.append(pp)
         
-        # wait until serail reads 'values' then takes the next three values as solar cell voltages
+        # wait until serail reads 'v' then takes the next three values as solar cell voltages
         oldBIRD_V = BIRD_V
         oldCAT_V = CAT_V
         oldDOG_V = DOG_V
@@ -303,20 +303,15 @@ def main():
         if paused:
             continue  # don't draw anything
         
+        #convert voltages into into y coordinates
         bird_y = (BIRD_V - BIRD_MinV) / (BIRD_MaxV - BIRD_MinV) * WIN_HEIGHT
         cat_y =  (CAT_V - CAT_MinV) / (CAT_MaxV - CAT_MinV) * WIN_HEIGHT
-        dog_y =  (DOG_V - DOG_MinV) / (DOG_MaxV - DOG_MinV) * WIN_HEIGHT
+        dog_y =  (DOG_V - DOG_MinV) / (DOG_MaxV - DOG_MinV) * WIN_HEIGHT  
         
-        #print(bird_y, dog_y)
-
-        
-
+        # fill surface then blitter small amount with background image. if entire surface blitter then RPi can't handel it on above ~500x500 pixels
         display_surface.fill((183,241,255))
         display_surface.blit(images['background'], (0,(WIN_HEIGHT - 178)))
-        pygame.draw.circle(display_surface, (255,255,255), ((1300), (200)), (75))
-
-             
-
+        pygame.draw.circle(display_surface, (255,255,255), ((1300), (200)), (75))           
             
         # because pygame doesn't support animated GIFs, we have to
         # animate the flapping bird ourselves
@@ -340,7 +335,8 @@ def main():
             if p.x + PIPE_WIDTH < DOG_X and not p.dog_score_counted:
                 dog_score += 1
                 p.dog_score_counted = True
-                
+        
+        #shift pipes along abit
         for p in pipes:
             p.x -= FRAME_ANIMATION_WIDTH
             if p.x <= -PIPE_WIDTH:  # PipePair is off screen
