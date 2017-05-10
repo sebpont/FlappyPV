@@ -2,10 +2,10 @@
 
 Hello!! Thanks for visiting
 
-This is a project to build a game coded in python, running on a Raspberry Pi and, most importantly, controlled with a solar panel. It was built for as an science outreach project to be played at Imperial Festival as a way to engage children in the solar cell reserach undertaken at Imperial College London. It's programmed to take three 0-5 V inputs that control three players on the continuous flappy bird type game. 
+This is a project to build a game coded in python, running on a Raspberry Pi and, most importantly, the controller input is with a solar panel (i.e. more light, more votlage, bird goes up; less light, less voltage, bird goes down). It was built for as an science outreach project to be played at Imperial Festival as a way to engage children in the solar cell reserach undertaken at Imperial College London. It's programmed to take three 0-5 V inputs that control three players on the continuous flappy bird type game. 
 
 Hardware:
-  - 5 V solar panel (e.g. http://uk.rs-online.com/web/p/photovoltaic-solar-panels/6646778/)
+  - 5 V solar panel, up to three (e.g. http://uk.rs-online.com/web/p/photovoltaic-solar-panels/6646778/)
   - Arduino Uno (or alternative anaolgue to serial microcontroller) (http://uk.rs-online.com/web/p/processor-microcontroller-development-kits/7154081/)
   - Raspberry Pi 3 (earlier versions won't be able to handle to the graphics of the game) (http://uk.rs-online.com/web/p/processor-microcontroller-development-kits/8968660/)
   - Standard accessories for Raspberry Pi (screen, keyboard, mouse, SD card)
